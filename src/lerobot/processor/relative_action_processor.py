@@ -19,7 +19,7 @@ from typing import Any
 import torch
 from torch import Tensor
 
-from lerobot.configs import PipelineFeatureType, PolicyFeature
+from lerobot.configs.types import PipelineFeatureType, PolicyFeature
 from lerobot.types import EnvTransition, TransitionKey
 from lerobot.utils.constants import OBS_STATE
 
@@ -199,7 +199,9 @@ class AbsoluteActionsProcessorStep(ProcessorStep):
             return new_transition
 
         mask = self.relative_step._build_mask(action.shape[-1])
-        new_transition[TransitionKey.ACTION] = to_absolute_actions(action, cached_state, mask)
+        new_transition[TransitionKey.ACTION] = to_absolute_actions(
+            action, self.relative_step._last_state, mask
+        )
         return new_transition
 
     def get_config(self) -> dict[str, Any]:
