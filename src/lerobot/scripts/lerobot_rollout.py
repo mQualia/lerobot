@@ -120,6 +120,18 @@ Usage examples
         --dataset.repo_id=user/rollout_sentry_data \\
         --dataset.single_task="patrol" \\
         --resume=true
+
+    # Rollout with custom video encoding parameters
+    lerobot-rollout \\
+        --strategy.type=base \\
+        --policy.path=lerobot/act_koch_real \\
+        --robot.type=koch_follower \\
+        --robot.port=/dev/ttyACM0 \\
+        --task="pick up cube" --duration=60 \\
+        --display_data=true \\
+        --dataset.camera_encoder.vcodec=h264 \\
+        --dataset.camera_encoder.preset=fast \\
+        --dataset.camera_encoder.extra_options={"tune": "film", "profile:v": "high", "bf": 2}
 """
 
 import logging
@@ -133,6 +145,7 @@ from lerobot.robots import (  # noqa: F401
     Robot,
     RobotConfig,
     bi_openarm_follower,
+    bi_rebot_b601_follower,
     bi_so_follower,
     earthrover_mini_plus,
     hope_jr,
@@ -140,6 +153,7 @@ from lerobot.robots import (  # noqa: F401
     omx_follower,
     openarm_follower,
     reachy2,
+    rebot_b601_follower,
     so_follower,
     unitree_g1 as unitree_g1_robot,
 )
@@ -148,6 +162,7 @@ from lerobot.teleoperators import (  # noqa: F401
     Teleoperator,
     TeleoperatorConfig,
     bi_openarm_leader,
+    bi_rebot_102_leader,
     bi_so_leader,
     homunculus,
     koch_leader,
@@ -155,6 +170,7 @@ from lerobot.teleoperators import (  # noqa: F401
     openarm_leader,
     openarm_mini,
     reachy2_teleoperator,
+    rebot_102_leader,
     so_leader,
     unitree_g1,
 )
